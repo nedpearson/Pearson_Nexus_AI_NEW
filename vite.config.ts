@@ -1,6 +1,6 @@
 ﻿import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "tailwindcss";
+import tailwindPostcss from "@tailwindcss/postcss";
 import autoprefixer from "autoprefixer";
 
 export default defineConfig({
@@ -10,11 +10,10 @@ export default defineConfig({
     port: 5199,
     strictPort: true,
   },
-  // Windows + sandbox safety (prevents Vite prebundle edge cases)
   optimizeDeps: { noDiscovery: true, include: [] },
   css: {
     postcss: {
-      plugins: [tailwindcss(), autoprefixer()],
+      plugins: [tailwindPostcss(), autoprefixer()],
     },
   },
 });
