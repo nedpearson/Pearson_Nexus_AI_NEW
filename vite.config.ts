@@ -1,28 +1,19 @@
-import { defineConfig } from "vite";
+﻿import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "node:path";
+import tailwindPostcss from "@tailwindcss/postcss";
+import autoprefixer from "autoprefixer";
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: { "@": path.resolve(__dirname, "src") },
-  },
-
-  // Vite 7+ way to effectively disable deps optimizer discovery/prebundle
-  optimizeDeps: {
-    noDiscovery: true,
-    include: [],
-  },
-
   server: {
     host: "127.0.0.1",
-    port: 5174,
+    port: 5199,
     strictPort: true,
-    hmr: { host: "127.0.0.1", port: 5174 },
-
-    // Windows/AV/CFA-friendly watcher mode
-    watch: { usePolling: true, interval: 150 },
   },
-
-  clearScreen: false,
+  optimizeDeps: { noDiscovery: true, include: [] },
+  css: {
+    postcss: {
+      plugins: [tailwindPostcss(), autoprefixer()],
+    },
+  },
 });
