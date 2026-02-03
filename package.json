@@ -4,6 +4,7 @@
     "version":  "0.0.0",
     "type":  "module",
     "dependencies":  {
+                         "express":  "^5.2.1",
                          "react":  "^19.2.0",
                          "react-dom":  "^19.2.0"
                      },
@@ -31,7 +32,7 @@
                     "build":  "vite build",
                     "lint":  "eslint .",
                     "preview":  "vite preview",
-                    "start":  "node ./scripts/start.mjs"
+                    "start":  "node scripts/start.mjs"
                 },
     "engines":  {
                     "node":  "\u003e=20 \u003c23"

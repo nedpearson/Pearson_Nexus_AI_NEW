@@ -1,13 +1,20 @@
-﻿import { spawn } from "node:child_process";
+﻿import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const port = process.env.PORT ?? "4173";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const app = express();
 
-// Vite preview must bind 0.0.0.0 on Railway so the platform can route traffic to it.
-const args = ["preview", "--host", "0.0.0.0", "--port", port, "--strictPort"];
+const distPath = path.join(__dirname, "../dist");
 
-const child = spawn(process.platform === "win32" ? "npx.cmd" : "npx", ["vite", ...args], {
-  stdio: "inherit",
-  env: process.env,
+app.use(express.static(distPath));
+
+app.get("*", (_, res) =>
+  res.sendFile(path.join(distPath, "index.html"))
+);
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, "0.0.0.0", () => {
+  console.log("Server running on port", port);
 });
-
-child.on("exit", (code) => process.exit(code ?? 0));
